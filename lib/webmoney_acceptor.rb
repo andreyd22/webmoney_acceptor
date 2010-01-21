@@ -25,7 +25,7 @@ module WebmoneyAcceptor
       end
 
       def valid_payment?(secret = nil)
-        secret = secret || params[:secret_key] || WebmoneyPayments.config["secret"]
+        secret = secret || params[:secret_key] || WebmoneyAcceptor.config["secret"]
         
         raise ArgumentError.new("WebMoney secret key is not provided") if secret.blank?
 
@@ -73,7 +73,7 @@ module WebmoneyAcceptor
     def webmoney_payment_form(*args, &block)
       options = args.extract_options!
       amount  = args.pop
-      wallet  = args.first || WebmoneyPayments.config["wallet"]
+      wallet  = args.first || WebmoneyAcceptor.config["wallet"]
 
       raise ArgumentError.new("Webmoney wallet is not provided") if wallet.blank?
 
